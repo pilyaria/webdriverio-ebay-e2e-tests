@@ -76,6 +76,10 @@ The project demonstrates several assertion styles:
 - Chai `assert`
 - Chai `should`
 
+### Test Suites
+
+![Allure Test Suites](images/allure-suites.png)
+
 ## 🛠 Tech Stack
 
 | Technology         | Purpose                        |
@@ -106,22 +110,21 @@ npm --version
 java -version
 ```
 
-## 🏗 Project Structure
+## 🏗️ Project Architecture
 
-```text
-webdriverio-ebay-e2e-tests/
-|-- tests/
-|   |-- pages/          # Page Objects and element selectors
-|   |-- resources/      # Expected test data
-|   |-- specs/          # Active test specifications
-|   `-- utilities/      # Reusable helper functions
-|-- reporters/          # Custom reporter implementation
-|-- allure-results/     # Raw Allure results (generated locally)
-|-- allure-report/      # Generated report published with GitHub Pages
-|-- screenshots/        # Screenshots captured after failed tests
-|-- package.json        # Dependencies and npm scripts
-`-- wdio.conf.js        # WebdriverIO configuration
-```
+The project follows the **Page Object Model (POM)** pattern to separate
+test scenarios from page-specific selectors and actions.
+
+Main project components:
+
+- `tests/pages/` — Page Object classes and reusable page actions
+- `tests/specs/` — automated test scenarios
+- `tests/resources/` — test data and reusable values
+- `tests/utilities/` — helper functions
+- `wdio.conf.js` — WebdriverIO configuration
+- `allure-report/` — generated interactive test report
+
+![Project Structure](images/project-structure.png)
 
 ## ▶️ Running the Tests
 
@@ -170,6 +173,10 @@ screenshots/
 ```
 
 Each filename contains the browser name, a filesystem-safe test name, and a timestamp. This helps diagnose dynamic content, unexpected dialogs, and temporary eBay Error Pages.
+
+### Example of a Failed Test
+
+![Failure Diagnostics](images/failure-diagnostics.png)
 
 ## 📊 Allure Reporting
 
