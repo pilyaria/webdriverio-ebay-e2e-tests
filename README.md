@@ -17,9 +17,38 @@ The project demonstrates maintainable UI automation against a real production we
 
 ### ✅ 24 test executions — 100% passed
 
-👉 **[View the published Allure Report](https://pilyaria.github.io/webdriverio-ebay-e2e-tests/allure-report/)**
+👉 **[View Interactive Allure Report](https://pilyaria.github.io/webdriverio-ebay-e2e-tests/allure-report/)**
+
+![Allure Report Overview](images/allure-overview.png)
 
 The report includes suite organization, browser parameters, execution timings, WebDriver steps, and test results.
+
+---
+
+## 🏆 Test Run Summary
+
+| Metric | Result |
+|---|---|
+| Automated tests | 24 |
+| Passed | 24 |
+| Success rate | 100% |
+| Test suites | 2 |
+| Browsers | Chrome & Firefox |
+| Test type | E2E UI |
+| Reporting | Allure |
+
+---
+
+## 🎯 What This Project Demonstrates
+
+- End-to-end UI test automation
+- Cross-browser testing in Chrome and Firefox
+- Page Object Model (POM)
+- Reusable test utilities
+- Automatic screenshots after failed tests
+- Allure test reporting
+
+---
 
 ## 🎯 Key Features
 
@@ -62,17 +91,17 @@ The project demonstrates several assertion styles:
 
 ## 🛠 Tech Stack
 
-| Technology | Purpose |
-| --- | --- |
-| JavaScript | Test implementation |
-| Node.js | Runtime environment |
-| WebdriverIO 9 | Browser automation |
-| Mocha | Test framework |
-| Chai | General-purpose assertions |
+| Technology         | Purpose                        |
+| ------------------ | ------------------------------ |
+| JavaScript         | Test implementation            |
+| Node.js            | Runtime environment            |
+| WebdriverIO 9      | Browser automation             |
+| Mocha              | Test framework                 |
+| Chai               | General-purpose assertions     |
 | WebdriverIO Expect | Browser and element assertions |
-| Page Object Model | Test architecture |
-| Allure Report | Test reporting |
-| Chrome and Firefox | Cross-browser execution |
+| Page Object Model  | Test architecture              |
+| Allure Report      | Test reporting                 |
+| Chrome and Firefox | Cross-browser execution        |
 
 ## 📋 Prerequisites
 
