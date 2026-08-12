@@ -1,0 +1,36 @@
+# Dependencies
+node_modules/
+
+# AI agents / IDE rules
+.agents/
+.cursor/
+
+# Test reports
+allure-results/
+allure-report/
+
+# Failure screenshots
+screenshots/
+
+# Local browser drivers
+geckodriver.exe
+
+# Archived files
+/old/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Environment variables / secrets
+.env
+.env.*
+!.env.example
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
