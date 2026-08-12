@@ -29,26 +29,13 @@ The report includes suite organization, browser parameters, execution timings, W
 
 | Metric | Result |
 |---|---|
-| Automated tests | 24 |
+| Test executions | 24 |
 | Passed | 24 |
 | Success rate | 100% |
 | Test suites | 2 |
 | Browsers | Chrome & Firefox |
 | Test type | E2E UI |
 | Reporting | Allure |
-
----
-
-## 🎯 What This Project Demonstrates
-
-- End-to-end UI test automation
-- Cross-browser testing in Chrome and Firefox
-- Page Object Model (POM)
-- Reusable test utilities
-- Automatic screenshots after failed tests
-- Allure test reporting
-
----
 
 ## 🎯 Key Features
 
@@ -223,5 +210,3 @@ These conditions provide practical experience with real-world UI automation chal
 ## 👩‍💻 About the Project
 
 This project is part of my QA Automation portfolio and demonstrates hands-on experience with JavaScript UI automation, WebdriverIO, cross-browser testing, the Page Object Model, failure diagnostics, and test reporting.
-
-📊 **[View the latest test results](https://pilyaria.github.io/webdriverio-ebay-e2e-tests/allure-report/)**
