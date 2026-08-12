@@ -139,6 +139,7 @@ export const config = {
       "allure",
       {
         outputDir: "allure-results",
+        disableWebdriverScreenshotsReporting: false,
       },
     ],
   ],
@@ -246,30 +247,30 @@ export const config = {
    * @param {boolean} result.passed    true if test has passed, otherwise false
    * @param {object}  result.retries   information about spec related retries, e.g. `{ attempts: 0, limit: 0 }`
    */
-  afterTest: async function (
-    test,
-    context,
-    { error, passed },
-  ) {
+  afterTest: async function (test, context, { error, passed }) {
     if (passed) {
-    return;
-  }
+      return;
+    }
 
-  const screenshotsDir = path.resolve("./screenshots");
-  await fs.mkdir(screenshotsDir, { recursive: true });
+    const screenshotsDir = path.resolve("./screenshots");
+    await fs.mkdir(screenshotsDir, { recursive: true });
 
-  const safeTestName = test.title.replace(/[^a-zA-Z0-9_-]/g, "_");
-  const browserName = browser.capabilities.browserName;
-  const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
+    const safeTestName = test.title.replace(/[^a-zA-Z0-9_-]/g, "_");
+    const browserName = browser.capabilities.browserName;
+    const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
 
-  const screenshotPath = path.join(
-    screenshotsDir,
-    `${browserName}_${safeTestName}_${timestamp}.png`,
-  );
+    const screenshotPath = path.join(
+      screenshotsDir,
+      `${browserName}_${safeTestName}_${timestamp}.png`,
+    );
 
-  await browser.saveScreenshot(screenshotPath);
+    // Save screenshot as a physical file
+    await browser.saveScreenshot(screenshotPath);
 
-  console.log(`Failure screenshot saved: ${screenshotPath}`);
+    // Attach screenshot to Allure report
+    await browser.takeScreenshot();
+
+    console.log(`Failure screenshot saved: ${screenshotPath}`);
   },
 
   /**
