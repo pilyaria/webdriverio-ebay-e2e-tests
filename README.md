@@ -1,4 +1,4 @@
-# WebdriverIO E2E Test Automation
+# 🧪 WebdriverIO eBay E2E Test Automation
 
 ![JavaScript](https://img.shields.io/badge/JavaScript-ES6%2B-F7DF1E?logo=javascript&logoColor=black)
 ![Node.js](https://img.shields.io/badge/Node.js-22.x-339933?logo=node.js&logoColor=white)
@@ -8,8 +8,6 @@
 ![Chrome](https://img.shields.io/badge/Browser-Chrome-4285F4?logo=googlechrome&logoColor=white)
 ![Firefox](https://img.shields.io/badge/Browser-Firefox-FF7139?logo=firefoxbrowser&logoColor=white)
 ![Allure Report](https://img.shields.io/badge/Report-Allure-FF6A00)
-
-# 🧪 WebdriverIO eBay E2E Test Automation
 
 Cross-browser end-to-end test automation project for **eBay**, built with
 **WebdriverIO, JavaScript, Mocha, Chai, Page Object Model, and Allure Report**.
