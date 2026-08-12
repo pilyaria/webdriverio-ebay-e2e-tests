@@ -1,7 +1,7 @@
 # 🧪 WebdriverIO eBay E2E Test Automation
 
 ![JavaScript](https://img.shields.io/badge/JavaScript-ES6%2B-F7DF1E?logo=javascript&logoColor=black)
-![Node.js](https://img.shields.io/badge/Node.js-22.x-339933?logo=node.js&logoColor=white)
+![Node.js](https://img.shields.io/badge/Node.js-22%2B-339933?logo=node.js&logoColor=white)
 ![WebdriverIO](https://img.shields.io/badge/WebdriverIO-9-EA5906?logo=webdriverio&logoColor=white)
 ![Mocha](https://img.shields.io/badge/Test-Mocha-8D6748?logo=mocha&logoColor=white)
 ![Chai](https://img.shields.io/badge/Assertions-Chai-A30701?logo=chai&logoColor=white)
@@ -11,7 +11,7 @@
 
 A cross-browser end-to-end test automation project for **eBay**, built with JavaScript, WebdriverIO, Mocha, Chai, the Page Object Model, and Allure Report.
 
-The project demonstrates maintainable UI automation against a real production website, including reusable Page Objects, isolated browser execution, dynamic UI handling, failure diagnostics, and interactive reporting.
+The project demonstrates maintainable UI automation against a real production website, including reusable Page Objects, optional isolated browser execution, dynamic UI handling, failure diagnostics, and interactive reporting.
 
 ## 📊 Live Test Report
 
@@ -27,15 +27,15 @@ The report includes suite organization, browser parameters, execution timings, W
 
 ## 🏆 Test Run Summary
 
-| Metric | Result |
-|---|---|
-| Test executions | 24 |
-| Passed | 24 |
-| Success rate | 100% |
-| Test suites | 2 |
-| Browsers | Chrome & Firefox |
-| Test type | E2E UI |
-| Reporting | Allure |
+| Metric          | Result           |
+| --------------- | ---------------- |
+| Test executions | 24               |
+| Passed          | 24               |
+| Success rate    | 100%             |
+| Test suites     | 2                |
+| Browsers        | Chrome & Firefox |
+| Test type       | E2E UI           |
+| Reporting       | Allure           |
 
 ## 🎯 Key Features
 
@@ -123,6 +123,7 @@ Main project components:
 - `tests/utilities/` — helper functions
 - `wdio.conf.js` — WebdriverIO configuration
 - `allure-report/` — generated interactive test report
+- `reporters/` — custom reporter implementation
 
 ![Project Structure](images/project-structure.png)
 
