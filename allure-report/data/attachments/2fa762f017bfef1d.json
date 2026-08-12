@@ -1,0 +1,4 @@
+{
+  "using": "css selector",
+  "value": ".address-dialog__lightbox[aria-hidden='false']"
+}
