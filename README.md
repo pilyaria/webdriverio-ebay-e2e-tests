@@ -9,67 +9,124 @@
 ![Firefox](https://img.shields.io/badge/Browser-Firefox-FF7139?logo=firefoxbrowser&logoColor=white)
 ![Allure Report](https://img.shields.io/badge/Report-Allure-FF6A00)
 
-An end-to-end test automation project for eBay built with WebdriverIO, Mocha, and Chai. The project demonstrates cross-browser testing, the Page Object Model, reusable test utilities, multiple assertion styles, and Allure reporting.
+# 🧪 WebdriverIO eBay E2E Test Automation
 
-## Test Coverage
+Cross-browser end-to-end test automation project for **eBay**, built with
+**WebdriverIO, JavaScript, Mocha, Chai, Page Object Model, and Allure Report**.
 
-- `chai.test.js` validates the promotional banner, its link, and navigation to the luxury jewelry page using different Chai assertion styles.
-- `jewelry.test.js` validates the Fine Jewelry category list, promotional banner content, and navigation through the banner link.
-- `search.test.js` validates the eBay home page, product search, search-result navigation, and selected product categories.
+The project demonstrates practical UI automation against a real production
+website, including reusable Page Objects, cross-browser execution, failure
+diagnostics, and interactive test reporting.
 
-The base Page Object also detects and closes the Shipping dialog before a test continues.
+---
 
-## Tech Stack
+## 📊 Live Test Report
 
-- JavaScript (ES modules)
-- Node.js
-- WebdriverIO 9
-- Mocha
-- Chai
+### ✅ 24 automated test cases — 100% passed
+
+👉 **[View Live Allure Report](https://pilyaria.github.io/webdriverio-ebay-e2e-tests/allure-report/)**
+
+The published Allure report contains test suites, execution details,
+timings, test steps, and results.
+
+---
+
+## 🎯 What This Project Demonstrates
+
+- End-to-end UI test automation
+- Cross-browser testing in **Chrome and Firefox**
+- Page Object Model (POM)
+- Reusable test utilities
+- WebdriverIO and Chai assertions
+- Automatic handling of dynamic UI elements
+- Automatic screenshots after failed tests
+- Allure test reporting
+- Test execution against a real production website
+
+---
+
+## 🧪 Test Coverage
+
+### eBay Product Search
+
+Tests cover:
+
+- eBay home page validation
+- Product search
+- Search results
+- Navigation through search results
+- Product category validation
+
+### Jewelry Page
+
+Tests cover:
+
+- Fine Jewelry category navigation
+- Promotional banner validation
+- Banner content
+- Banner links
+- Navigation to the Luxury Jewelry page
+
+### Assertion Practice
+
+The project also demonstrates different assertion approaches using:
+
 - WebdriverIO Expect
-- Google Chrome
-- Mozilla Firefox
-- Allure Report
-- Page Object Model
+- Chai `expect`
+- Chai `assert`
+- Chai `should`
 
-## Prerequisites
+---
 
-Install the following tools before running the project:
+## 🛠 Tech Stack
 
-- Node.js and npm
-- Google Chrome
-- Mozilla Firefox
-- Java, required by Allure Commandline
+| Technology         | Purpose                 |
+| ------------------ | ----------------------- |
+| JavaScript         | Test implementation     |
+| Node.js            | Runtime                 |
+| WebdriverIO 9      | Browser automation      |
+| Mocha              | Test framework          |
+| Chai               | Assertions              |
+| WebdriverIO Expect | UI assertions           |
+| Page Object Model  | Test architecture       |
+| Allure Report      | Test reporting          |
+| Chrome             | Cross-browser execution |
+| Firefox            | Cross-browser execution |
 
-Verify the installed versions:
+---
 
-```powershell
-node --version
-npm --version
-java -version
+## 🏗 Project Structure
+
+```text
+webdriverio-hands-on/
+|-- tests/
+|   |-- pages/          # Page Objects and element
+|   |-- resources/      # Expected test data
+|   |-- specs/          # Active test specifications
+|   `-- utilities/      # Reusable helper functions
+|-- allure-report/      # Generated Allure HTML report
+|-- screenshots/        # Screenshots captured after
+|-- package.json        # Dependencies and npm scripts
+`-- wdio.conf.js        # WebdriverIO configuration
 ```
 
-## Installation
+---
 
-Clone the repository, open its directory, and install the dependencies:
+## ▶️ Running the Tests
+
+Install dependencies:
 
 ```powershell
 npm install
 ```
 
-WebdriverIO manages the required browser drivers automatically. The project also contains a local `geckodriver.exe` file.
-
-## Running the Tests
-
-### Run all spec files
+Run all tests:
 
 ```powershell
 npm run wdio
 ```
 
-This command runs every file matching `tests/specs/**/*.js` in Chrome and Firefox.
-
-### Run one spec in both browsers
+Run individual test suites:
 
 ```powershell
 npm run test:chai
@@ -77,77 +134,47 @@ npm run test:jewelry
 npm run test:search
 ```
 
-### Run one spec in one browser
-
-Chrome:
+Run a test suite in Chrome:
 
 ```powershell
-npm run test:chai:chrome
-npm run test:jewelry:chrome
 npm run test:search:chrome
 ```
 
-Firefox:
+Run a test suite in Firefox:
 
 ```powershell
-npm run test:chai:firefox
-npm run test:jewelry:firefox
 npm run test:search:firefox
 ```
 
-Running one spec in one browser at a time is the most stable option for this project. Because eBay is an external production website, several concurrent sessions from the same environment may occasionally receive a temporary eBay Error Page.
+Running one spec in one browser at a time is the most stable option because
+the tests interact with the public eBay production website.
 
-## Failure Screenshots
+---
 
-The WebdriverIO `afterTest` hook automatically captures the browser state after a failed test. Screenshots are not created for successful tests.
+## 📸 Failure Diagnostics
 
-Failure screenshots are saved in the project-level `screenshots` directory. The directory is created automatically when the first failure occurs:
+When a test fails, the WebdriverIO afterTest hook automatically captures
+the current browser state.
 
-```text
+Example:
 screenshots/
-`-- firefox_should_click_on_the_button_2026-08-12T20-51-23-531Z.png
-```
+└── firefox_should_click_on_the_button_2026-08-12T20-51-23-531Z.png
 
-Each filename contains:
+Each screenshot filename contains:
 
-- the browser name;
-- a filesystem-safe version of the test title;
-- an ISO timestamp to prevent files from being overwritten.
+- browser name
+- test name
+- timestamp
 
-The screenshot hook is configured in `wdio.conf.js` and must remain asynchronous because it creates a directory and saves an image with `await`:
+This makes failures easier to investigate, especially when caused by
+dynamic content, dialogs, or temporary eBay error pages.
 
-```js
-afterTest: async function (test, context, { passed }) {
-  if (passed) {
-    return;
-  }
+---
 
-  // Create the screenshots directory and save the current browser state.
-}
-```
+## 📊 Allure Reporting
 
-Screenshots are especially useful for diagnosing temporary eBay Error Pages, missing page content, and dialogs that intercept element clicks.
-
-## Allure Report
-
-WebdriverIO automatically writes raw Allure data from every test run to `allure-results`.
-
-To create a report for a clean test cycle, remove the previous raw results first:
-
-```powershell
-Remove-Item -Recurse -Force allure-results -ErrorAction SilentlyContinue
-```
-
-Run the required tests. For example, execute every current spec sequentially in both browsers:
-
-```powershell
-npm run test:chai:chrome
-npm run test:chai:firefox
-npm run test:jewelry:chrome
-npm run test:jewelry:firefox
-npm run test:search:chrome
-npm run test:search:firefox
-```
+WebdriverIO writes raw test results to:
+allure-results/
 
 Generate the HTML report:
 
@@ -155,47 +182,54 @@ Generate the HTML report:
 npx allure generate allure-results --clean -o allure-report
 ```
 
-Open the generated report:
+Open it locally:
 
 ```powershell
 npx allure open allure-report
 ```
 
-> The `--clean` option clears the generated `allure-report` directory, but it does not clear the raw `allure-results` directory. If `allure-results` is not removed before a new test cycle, the report will include previous executions and their failures.
+A successful report is also published through GitHub Pages:
+https://pilyaria.github.io/webdriverio-ebay-e2e-tests/allure-report/
 
-## Project Structure
+---
 
-```text
-webdriverio-hands-on/
-|-- tests/
-|   |-- pages/          # Page Objects and element selectors
-|   |-- resources/      # Expected test data
-|   |-- specs/          # Active test specifications
-|   `-- utilities/      # Reusable helper functions
-|-- allure-results/     # Raw Allure test results
-|-- allure-report/      # Generated Allure HTML report
-|-- screenshots/        # Screenshots captured after failed tests
-|-- package.json        # Dependencies and npm scripts
-`-- wdio.conf.js        # WebdriverIO configuration
-```
-
-The `allure-results`, `allure-report`, and `old` directories are excluded from version control through `.gitignore`.
-
-## Implementation Highlights
+## 💡 Implementation Highlights
 
 - Cross-browser execution in Chrome and Firefox
-- Browser selection through the `WDIO_BROWSER` environment variable
-- Page Object Model for reusable page interactions
+- Page Object Model for maintainable UI interactions
+- Browser selection through WDIO_BROWSER
+- Reusable utilities and centralized test data
 - Automatic handling of the delayed eBay Shipping dialog
-- HTTPS base URL configuration
-- WebdriverIO and Chai assertion examples
-- Automatic screenshots after failed tests
-- Allure result collection and HTML report generation
-- Dedicated npm scripts for isolated, stable test execution
+- Explicit waits for dynamic elements
+- Multiple assertion styles
+- Automatic failure screenshots
+- Interactive Allure HTML reporting
+- Dedicated npm scripts for isolated test execution
 
-## Known Limitations
+---
 
-- The project tests a public production website that is outside the project's control.
-- eBay may occasionally return a temporary server or anti-bot Error Page.
-- Changes to the live eBay interface can require selector or expected-data updates.
-- GeckoDriver and WebDriver BiDi may print browser warnings even when the final spec status is `PASSED`.
+## ⚠️ Testing a Live Production Website
+
+This project intentionally tests the public eBay website rather than a
+controlled demo application.
+
+Because the application is outside the project's control:
+
+- UI changes may require locator updates
+- eBay may occasionally return temporary error or anti-bot pages
+- content can differ between sessions or browsers
+- parallel sessions may behave differently from isolated executions
+
+These conditions provide useful practice in handling real-world UI automation challenges.
+
+---
+
+## 👩‍💻 About the Project
+
+This project was created as part of my QA Automation portfolio to demonstrate
+practical experience with JavaScript UI automation, WebdriverIO,
+cross-browser testing, Page Object Model, failure diagnostics, and test
+reporting.
+
+📊 View Live Test Results
+https://pilyaria.github.io/webdriverio-ebay-e2e-tests/allure-report/
