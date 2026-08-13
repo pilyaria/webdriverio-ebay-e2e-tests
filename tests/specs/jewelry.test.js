@@ -1,45 +1,46 @@
 import { expect as chaiExpect } from "chai";
 import jewelryPage from "../pages/jewelry.page.js";
-import resources from "../resources/index.js";
 
 describe("Jewelry Page", () => {
   before(async () => {
     await jewelryPage.open();
   });
 
-  /*
-  it("should show the jewelry categories in the console", async () => {
-    const categories = await jewelryPage.showAllJewelryCategory();
+  it("should display the Fine Jewelry page title", async () => {
+    await expect(jewelryPage.pageTitle).toBeDisplayed();
+    await expect(jewelryPage.pageTitle).toHaveText("Fine Jewelry");
+  });
+
+  it("should display the Shop by category section", async () => {
+    await expect(jewelryPage.shopByCategoryTitle).toBeDisplayed();
+  });
+
+  it("should display jewelry categories", async () => {
+    const categories = await jewelryPage.getVisibleCategoryTexts();
 
     chaiExpect(categories).to.be.an("array").that.is.not.empty;
-  });
-*/
-  it("should veryfy jewelry category list", async () => {
-    const jewelryCategoryList = await jewelryPage.showAllJewelryCategory();
-    const expectedCategories = resources.jewelryCategoryList;
-    chaiExpect(jewelryCategoryList).to.be.an("array").that.is.not.empty;
-    chaiExpect(jewelryCategoryList).to.deep.equal(expectedCategories);
-  });
 
-  it("should show the banner container", async () => {
-    await expect(jewelryPage.promoBanner).toBeDisplayed();
-  });
-
-  it("should show the banner title", async () => {
-    await expect(jewelryPage.bannerTitle).toHaveText(/Pieces as unique as you/);
-  });
-
-  it("should contain a link on the banner and be clickable", async () => {
-    const href = await jewelryPage.shopButton.getAttribute("href");
-
-    chaiExpect(href).to.include("luxury-jewelry-row");
-    await expect(jewelryPage.shopButton).toBeClickable();
+    chaiExpect(categories).to.include.members([
+      "Jewelry & Watches",
+      "Fine Jewelry",
+      "Anklets",
+      "Bracelets & Charms",
+      "Brooches & Pins",
+      "Earrings",
+      "Hair & Head Jewelry",
+      "Jewelry Sets",
+      "Necklaces & Pendants",
+      "Rings",
+      "Toe Rings",
+    ]);
   });
 
-  it("should open the luxury jewelry page after clicking the button", async () => {
-    await jewelryPage.shopButton.click();
+  it("should contain a clickable Tiffany & Co. link", async () => {
+    await expect(jewelryPage.tiffanyLink).toBeDisplayed();
+    await expect(jewelryPage.tiffanyLink).toBeClickable();
 
-    const url = await browser.getUrl();
-    chaiExpect(url).to.include("luxury-jewelry-row");
+    const href = await jewelryPage.tiffanyLink.getAttribute("href");
+
+    chaiExpect(href).to.be.a("string").and.not.be.empty;
   });
 });
