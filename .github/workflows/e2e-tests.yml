@@ -2,6 +2,28 @@ name: E2E Tests
 
 on:
   workflow_dispatch:
+    inputs:
+      suite:
+        description: "Test suite"
+        required: true
+        default: "all"
+        type: choice
+        options:
+          - all
+          - chai
+          - jewelry
+          - search
+
+      browser:
+        description: "Browser"
+        required: true
+        default: "both"
+        type: choice
+        options:
+          - both
+          - chrome
+          - firefox
+
   push:
     branches:
       - main
@@ -20,6 +42,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # --------------------
+      # Setup
+      # --------------------
+
       - name: Checkout repository
         uses: actions/checkout@v4
 
@@ -41,16 +67,28 @@ jobs:
 
       - name: Chrome - Chai tests
         id: chrome_chai
+        if: |
+          github.event_name == 'push' ||
+          ((inputs.browser == 'both' || inputs.browser == 'chrome') &&
+           (inputs.suite == 'all' || inputs.suite == 'chai'))
         continue-on-error: true
         run: npm run test:chai:chrome
 
       - name: Chrome - Jewelry tests
         id: chrome_jewelry
+        if: |
+          github.event_name == 'push' ||
+          ((inputs.browser == 'both' || inputs.browser == 'chrome') &&
+           (inputs.suite == 'all' || inputs.suite == 'jewelry'))
         continue-on-error: true
         run: npm run test:jewelry:chrome
 
       - name: Chrome - Search tests
         id: chrome_search
+        if: |
+          github.event_name == 'push' ||
+          ((inputs.browser == 'both' || inputs.browser == 'chrome') &&
+           (inputs.suite == 'all' || inputs.suite == 'search'))
         continue-on-error: true
         run: npm run test:search:chrome
 
@@ -60,16 +98,28 @@ jobs:
 
       - name: Firefox - Chai tests
         id: firefox_chai
+        if: |
+          github.event_name == 'push' ||
+          ((inputs.browser == 'both' || inputs.browser == 'firefox') &&
+           (inputs.suite == 'all' || inputs.suite == 'chai'))
         continue-on-error: true
         run: npm run test:chai:firefox
 
       - name: Firefox - Jewelry tests
         id: firefox_jewelry
+        if: |
+          github.event_name == 'push' ||
+          ((inputs.browser == 'both' || inputs.browser == 'firefox') &&
+           (inputs.suite == 'all' || inputs.suite == 'jewelry'))
         continue-on-error: true
         run: npm run test:jewelry:firefox
 
       - name: Firefox - Search tests
         id: firefox_search
+        if: |
+          github.event_name == 'push' ||
+          ((inputs.browser == 'both' || inputs.browser == 'firefox') &&
+           (inputs.suite == 'all' || inputs.suite == 'search'))
         continue-on-error: true
         run: npm run test:search:firefox
 
@@ -137,19 +187,21 @@ jobs:
           echo "Firefox Jewelry: ${{ steps.firefox_jewelry.outcome }}"
           echo "Firefox Search: ${{ steps.firefox_search.outcome }}"
 
-          if [[ \
-            "${{ steps.chrome_chai.outcome }}" == "failure" || \
-            "${{ steps.chrome_jewelry.outcome }}" == "failure" || \
-            "${{ steps.chrome_search.outcome }}" == "failure" || \
-            "${{ steps.firefox_chai.outcome }}" == "failure" || \
-            "${{ steps.firefox_jewelry.outcome }}" == "failure" || \
-            "${{ steps.firefox_search.outcome }}" == "failure" \
-          ]]; then
+          if [[ "${{ steps.chrome_chai.outcome }}" == "failure" ||
+                "${{ steps.chrome_jewelry.outcome }}" == "failure" ||
+                "${{ steps.chrome_search.outcome }}" == "failure" ||
+                "${{ steps.firefox_chai.outcome }}" == "failure" ||
+                "${{ steps.firefox_jewelry.outcome }}" == "failure" ||
+                "${{ steps.firefox_search.outcome }}" == "failure" ]]; then
             echo "One or more E2E test suites failed."
             exit 1
           fi
 
-          echo "All E2E test suites passed."
+          echo "All selected E2E test suites passed."
+
+  # --------------------
+  # Deploy Allure
+  # --------------------
 
   deploy:
     if: always()
