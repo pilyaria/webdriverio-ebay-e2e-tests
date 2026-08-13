@@ -29,7 +29,9 @@ describe("Ebay product search", () => {
       await browser.waitUntil(
         async () =>
           (await browser.getTitle()).toLowerCase().includes(searchTerm),
-        { timeout: 10000 },
+        {
+          timeout: 10000,
+        },
       );
     });
 
@@ -39,16 +41,19 @@ describe("Ebay product search", () => {
         searchCategory,
         10000,
       );
+
       await expect(searchPage.selectedCategory).toHaveText(searchCategory);
     });
 
     it("should update the jewelry category", async () => {
       await searchPage.searchFor(jewelrySearchTerm);
+
       await waitForTextChange(
         searchPage.selectedCategory,
         jewelryCategory,
         10000,
       );
+
       await expect(searchPage.selectedCategory).toHaveText(jewelryCategory);
     });
   });
