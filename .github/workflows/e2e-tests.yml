@@ -112,7 +112,6 @@ jobs:
           path: allure-report/
 
   deploy:
-    if: always()
     needs: e2e-tests
     runs-on: ubuntu-latest
 
