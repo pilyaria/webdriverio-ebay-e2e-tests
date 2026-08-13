@@ -7,49 +7,51 @@ describe("Jewelry Page", () => {
     await jewelryPage.open();
   });
 
-  it("should show the banner container", async () => {
-    const promoBanner = await $(".brw-uep--promo-banner__container");
+  it("should show the Fine Jewelry heading", async () => {
+    const heading = await $("h1");
 
-    await promoBanner.waitForDisplayed({ timeout: 10000 });
-    await expect(promoBanner).toBeDisplayed();
+    await heading.waitForDisplayed({ timeout: 10000 });
+    await expect(heading).toBeDisplayed();
   });
 
-  it("should show the banner title", async () => {
-    const bannerTitle = $(".brw-uep--promo-banner__content");
+  it("should show the Fine Jewelry title", async () => {
+    const heading = await $("h1");
 
-    const bannerTitleText = await bannerTitle.getText();
-    await chaiExpect(bannerTitleText).to.not.be.empty;
-    await expect(bannerTitle).toHaveText(/Pieces as unique as you/);
-    bannerTitleText.should.not.be.empty;
-    assert.isNotEmpty(bannerTitleText);
+    const headingText = await heading.getText();
+
+    chaiExpect(headingText).to.not.be.empty;
+    await expect(heading).toHaveText("Fine Jewelry");
+    headingText.should.not.be.empty;
+    assert.isNotEmpty(headingText);
   });
 
-  it("should contain link on the banner and verify it is clickable", async () => {
-    const promoBanners = await $$(".brw-uep--promo-banner__container");
-    const firstBanner = promoBanners[0];
-    const shopButton = await firstBanner.$(".brw-banner-cta__button");
-    const tag = await shopButton.getTagName();
-    await expect(shopButton).toHaveAttribute(
-      "href",
-      expect.stringContaining("luxury-jewelry-row"),
-    );
-    await expect(shopButton).toBeClickable();
-    await chaiExpect(tag).to.equal("a");
+  it("should contain a Rings link and verify it is clickable", async () => {
+    const ringsLink = await $("a=Rings");
+    const tag = await ringsLink.getTagName();
+
+    await expect(ringsLink).toBeClickable();
+    chaiExpect(tag).to.equal("a");
     tag.should.equal("a");
   });
 
-  it("should click on the button and show a new url", async () => {
-    const promoBanners = await $$(".brw-uep--promo-banner__container");
-    const firstBanner = promoBanners[0];
-    const shopButton = await firstBanner.$(".brw-banner-cta__button");
-    await shopButton.click();
+  it("should click the Rings link and change the url", async () => {
+    const ringsLink = await $("a=Rings");
 
-    const url = await browser.getUrl();
-    await chaiExpect(url).to.include("luxury-jewelry-row");
+    await ringsLink.waitForClickable({ timeout: 10000 });
+    await ringsLink.click();
 
-    await expect(browser).toHaveUrl(
-      "https://www.ebay.com/e/row/luxury-jewelry-row",
+    await browser.waitUntil(
+      async () =>
+        (await browser.getUrl()) !==
+        "https://www.ebay.com/b/Fine-Jewelry/4196/bn_2408451",
+      {
+        timeout: 10000,
+        timeoutMsg: "URL did not change after clicking the Rings link",
+      },
     );
 
+    const url = await browser.getUrl();
+
+    chaiExpect(url).to.include("Rings");
   });
 });
