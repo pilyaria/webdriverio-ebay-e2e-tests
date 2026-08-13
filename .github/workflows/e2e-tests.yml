@@ -1,0 +1,50 @@
+name: E2E Tests
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  e2e-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      # --------------------
+      # Chrome
+      # --------------------
+
+      - name: Chrome - Chai tests
+        run: npm run test:chai:chrome
+
+      - name: Chrome - Jewelry tests
+        run: npm run test:jewelry:chrome
+
+      - name: Chrome - Search tests
+        run: npm run test:search:chrome
+
+      # --------------------
+      # Firefox
+      # --------------------
+
+      - name: Firefox - Chai tests
+        run: npm run test:chai:firefox
+
+      - name: Firefox - Jewelry tests
+        run: npm run test:jewelry:firefox
+
+      - name: Firefox - Search tests
+        run: npm run test:search:firefox
