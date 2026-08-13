@@ -18,24 +18,21 @@ describe("Jewelry Page", () => {
   it("should display jewelry categories", async () => {
     const categories = await jewelryPage.getVisibleCategoryTexts();
 
-    const normalize = (text) =>
-      text.toLowerCase().replaceAll("&", "and").replace(/\s+/g, " ").trim();
+    chaiExpect(categories).to.be.an("array").that.is.not.empty;
 
-    const actualCategories = categories.map(normalize);
-
-    const expectedCategories = [
+    chaiExpect(categories).to.include.members([
+      "Jewelry & Watches",
+      "Fine Jewelry",
       "Anklets",
-      "Bracelets and charms",
-      "Brooches and pins",
+      "Bracelets & Charms",
+      "Brooches & Pins",
       "Earrings",
-      "Hair and head jewelry",
-      "Jewelry sets",
-      "Necklaces and pendants",
+      "Hair & Head Jewelry",
+      "Jewelry Sets",
+      "Necklaces & Pendants",
       "Rings",
-      "Toe rings",
-    ].map(normalize);
-
-    chaiExpect(actualCategories).to.include.members(expectedCategories);
+      "Toe Rings",
+    ]);
   });
 
   it("should contain a clickable Tiffany & Co. link", async () => {
