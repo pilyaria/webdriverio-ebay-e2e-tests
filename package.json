@@ -9,12 +9,12 @@
     "test:chai": "wdio run ./wdio.conf.js --spec ./tests/specs/chai.test.js",
     "test:jewelry": "wdio run ./wdio.conf.js --spec ./tests/specs/jewelry.test.js",
     "test:search": "wdio run ./wdio.conf.js --spec ./tests/specs/search.test.js",
-    "test:chai:chrome": "set \"WDIO_BROWSER=chrome\" && wdio run ./wdio.conf.js --spec ./tests/specs/chai.test.js",
-    "test:chai:firefox": "set \"WDIO_BROWSER=firefox\" && wdio run ./wdio.conf.js --spec ./tests/specs/chai.test.js",
-    "test:jewelry:chrome": "set \"WDIO_BROWSER=chrome\" && wdio run ./wdio.conf.js --spec ./tests/specs/jewelry.test.js",
-    "test:jewelry:firefox": "set \"WDIO_BROWSER=firefox\" && wdio run ./wdio.conf.js --spec ./tests/specs/jewelry.test.js",
-    "test:search:chrome": "set \"WDIO_BROWSER=chrome\" && wdio run ./wdio.conf.js --spec ./tests/specs/search.test.js",
-    "test:search:firefox": "set \"WDIO_BROWSER=firefox\" && wdio run ./wdio.conf.js --spec ./tests/specs/search.test.js"
+    "test:chai:chrome": "cross-env WDIO_BROWSER=chrome wdio run ./wdio.conf.js --spec ./tests/specs/chai.test.js",
+    "test:chai:firefox": "cross-env WDIO_BROWSER=firefox wdio run ./wdio.conf.js --spec ./tests/specs/chai.test.js",
+    "test:jewelry:chrome": "cross-env WDIO_BROWSER=chrome wdio run ./wdio.conf.js --spec ./tests/specs/jewelry.test.js",
+    "test:jewelry:firefox": "cross-env WDIO_BROWSER=firefox wdio run ./wdio.conf.js --spec ./tests/specs/jewelry.test.js",
+    "test:search:chrome": "cross-env WDIO_BROWSER=chrome wdio run ./wdio.conf.js --spec ./tests/specs/search.test.js",
+    "test:search:firefox": "cross-env WDIO_BROWSER=firefox wdio run ./wdio.conf.js --spec ./tests/specs/search.test.js"
   },
   "keywords": [],
   "author": "",
@@ -26,6 +26,7 @@
     "@wdio/mocha-framework": "^9.29.1",
     "@wdio/spec-reporter": "^9.29.1",
     "allure-commandline": "^2.43.0",
+    "cross-env": "^10.1.0",
     "webdriverio": "^9.29.1"
   },
   "dependencies": {
