@@ -6,6 +6,15 @@ on:
     branches:
       - main
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
 jobs:
   e2e-tests:
     runs-on: ubuntu-latest
@@ -87,3 +96,31 @@ jobs:
           name: failure-screenshots
           path: screenshots/
           if-no-files-found: ignore
+
+      # --------------------
+      # GitHub Pages
+      # --------------------
+
+      - name: Configure GitHub Pages
+        if: always()
+        uses: actions/configure-pages@v5
+
+      - name: Upload GitHub Pages artifact
+        if: always()
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: allure-report/
+
+  deploy:
+    if: always()
+    needs: e2e-tests
+    runs-on: ubuntu-latest
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy Allure report to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
