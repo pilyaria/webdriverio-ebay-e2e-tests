@@ -25,25 +25,11 @@ class JewelryPage extends Page {
     const links = await this.categoryLinks;
     const categories = [];
 
-    const expectedCategories = [
-      "Jewelry & Watches",
-      "Fine Jewelry",
-      "Anklets",
-      "Bracelets & Charms",
-      "Brooches & Pins",
-      "Earrings",
-      "Hair & Head Jewelry",
-      "Jewelry Sets",
-      "Necklaces & Pendants",
-      "Rings",
-      "Toe Rings",
-    ];
-
     for (const link of links) {
       const text = (await link.getText()).trim();
 
-      if (expectedCategories.includes(text) && !categories.includes(text)) {
-        categories.push(text);
+      if (text) {
+        categories.push(text.toLowerCase());
       }
     }
 

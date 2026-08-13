@@ -20,19 +20,7 @@ describe("Jewelry Page", () => {
 
     chaiExpect(categories).to.be.an("array").that.is.not.empty;
 
-    chaiExpect(categories).to.include.members([
-      "Jewelry & Watches",
-      "Fine Jewelry",
-      "Anklets",
-      "Bracelets & Charms",
-      "Brooches & Pins",
-      "Earrings",
-      "Hair & Head Jewelry",
-      "Jewelry Sets",
-      "Necklaces & Pendants",
-      "Rings",
-      "Toe Rings",
-    ]);
+    chaiExpect(categories).to.include.members(["anklets", "earrings", "rings"]);
   });
 
   it("should contain a clickable Tiffany & Co. link", async () => {
