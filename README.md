@@ -135,7 +135,11 @@ Install the dependencies:
 npm install
 ```
 
-Run all spec files in both configured browsers:
+Run all configured tests:
+
+```powershell
+npm test
+```
 
 ```powershell
 npm run wdio
@@ -149,14 +153,19 @@ npm run test:jewelry
 npm run test:search
 ```
 
-Run one suite in one browser:
+Run a specific suite in Chrome:
 
 ```powershell
 npm run test:chai:chrome
-npm run test:chai:firefox
 npm run test:jewelry:chrome
-npm run test:jewelry:firefox
 npm run test:search:chrome
+```
+
+Run a specific suite in Firefox:
+
+```powershell
+npm run test:chai:firefox
+npm run test:jewelry:firefox
 npm run test:search:firefox
 ```
 
