@@ -40,12 +40,18 @@ jobs:
       # --------------------
 
       - name: Chrome - Chai tests
+        id: chrome_chai
+        continue-on-error: true
         run: npm run test:chai:chrome
 
       - name: Chrome - Jewelry tests
+        id: chrome_jewelry
+        continue-on-error: true
         run: npm run test:jewelry:chrome
 
       - name: Chrome - Search tests
+        id: chrome_search
+        continue-on-error: true
         run: npm run test:search:chrome
 
       # --------------------
@@ -53,12 +59,18 @@ jobs:
       # --------------------
 
       - name: Firefox - Chai tests
+        id: firefox_chai
+        continue-on-error: true
         run: npm run test:chai:firefox
 
       - name: Firefox - Jewelry tests
+        id: firefox_jewelry
+        continue-on-error: true
         run: npm run test:jewelry:firefox
 
       - name: Firefox - Search tests
+        id: firefox_search
+        continue-on-error: true
         run: npm run test:search:firefox
 
       # --------------------
@@ -111,7 +123,36 @@ jobs:
         with:
           path: allure-report/
 
+      # --------------------
+      # Final test status
+      # --------------------
+
+      - name: Check test results
+        if: always()
+        run: |
+          echo "Chrome Chai: ${{ steps.chrome_chai.outcome }}"
+          echo "Chrome Jewelry: ${{ steps.chrome_jewelry.outcome }}"
+          echo "Chrome Search: ${{ steps.chrome_search.outcome }}"
+          echo "Firefox Chai: ${{ steps.firefox_chai.outcome }}"
+          echo "Firefox Jewelry: ${{ steps.firefox_jewelry.outcome }}"
+          echo "Firefox Search: ${{ steps.firefox_search.outcome }}"
+
+          if [[ \
+            "${{ steps.chrome_chai.outcome }}" == "failure" || \
+            "${{ steps.chrome_jewelry.outcome }}" == "failure" || \
+            "${{ steps.chrome_search.outcome }}" == "failure" || \
+            "${{ steps.firefox_chai.outcome }}" == "failure" || \
+            "${{ steps.firefox_jewelry.outcome }}" == "failure" || \
+            "${{ steps.firefox_search.outcome }}" == "failure" \
+          ]]; then
+            echo "One or more E2E test suites failed."
+            exit 1
+          fi
+
+          echo "All E2E test suites passed."
+
   deploy:
+    if: always()
     needs: e2e-tests
     runs-on: ubuntu-latest
 
