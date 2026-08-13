@@ -13,7 +13,6 @@ class JewelryPage extends Page {
     return $$(".brw-category-nav__link");
   }
 
-
   get tiffanyLink() {
     return $("a=Tiffany & Co.");
   }
@@ -26,27 +25,17 @@ class JewelryPage extends Page {
     const links = await this.categoryLinks;
     const categories = [];
 
-    const expectedCategories = [
-      "Jewelry & Watches",
-      "Fine Jewelry",
-      "Anklets",
-      "Bracelets & Charms",
-      "Brooches & Pins",
-      "Earrings",
-      "Hair & Head Jewelry",
-      "Jewelry Sets",
-      "Necklaces & Pendants",
-      "Rings",
-      "Toe Rings",
-    ];
-
     for (const link of links) {
-      const text = (await link.getText()).trim();
+      if (await link.isDisplayed()) {
+        const text = (await link.getText()).trim();
 
-      if (expectedCategories.includes(text) && !categories.includes(text)) {
-        categories.push(text);
+        if (text) {
+          categories.push(text);
+        }
       }
     }
+
+    console.log("Found jewelry categories:", categories);
 
     return categories;
   }
