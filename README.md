@@ -15,17 +15,17 @@ The project demonstrates maintainable UI automation against a real production we
 
 ## 📊 Live Test Report
 
-### ✅ 24 test executions — 100% passed
+The latest automated test run is published automatically to GitHub Pages.
 
-👉 **[View Interactive Allure Report](https://pilyaria.github.io/webdriverio-ebay-e2e-tests/allure-report/)**
+👉 **[View Interactive Allure Report](https://pilyaria.github.io/webdriverio-ebay-e2e-tests/)**
+
+The report is regenerated and deployed after every GitHub Actions E2E run, including runs containing failed tests. This makes it possible to inspect test results, execution details, failures, screenshots, and WebDriver steps directly from the published report.
 
 ![Allure Report Overview](images/allure-overview.png)
 
-The report includes suite organization, browser parameters, execution timings, WebDriver steps, and test results.
-
 ---
 
-## 🏆 Test Run Summary
+## 🏆 Successfull Test Run Summary
 
 | Metric          | Result           |
 | --------------- | ---------------- |
@@ -43,12 +43,15 @@ The report includes suite organization, browser parameters, execution timings, W
 - Cross-browser execution in Chrome and Firefox
 - Page Object Model for reusable page interactions
 - Browser selection through the `WDIO_BROWSER` environment variable
-- Explicit waits for dynamic elements
+- Explicit waits and handling of dynamic UI elements
 - Automatic handling of the delayed eBay Shipping dialog
 - WebdriverIO Expect and Chai assertion examples
-- Automatic screenshots after failed tests
-- Allure result collection and HTML reporting
+- Automatic screenshots for failed tests
 - Dedicated npm scripts for isolated test execution
+- Automated E2E execution with GitHub Actions
+- Automatic Allure report generation after CI test runs
+- Automatic Allure deployment to GitHub Pages
+- Allure report publication even when E2E tests fail
 
 ## 🧪 Test Coverage
 
@@ -190,24 +193,48 @@ Each filename contains the browser name, a filesystem-safe test name, and a time
 
 ## 📊 Allure Reporting
 
-WebdriverIO writes raw test data to the `allure-results/` directory.
+The project uses Allure Report for test execution reporting.
 
-For a clean reporting cycle, remove results from previous executions before running the tests:
+During every GitHub Actions run:
 
-```powershell
-Remove-Item -Recurse -Force allure-results -ErrorAction SilentlyContinue
-```
+1. Previous Allure results are cleared.
+2. Chrome and Firefox test suites are executed.
+3. WebdriverIO writes test data to `allure-results/`.
+4. An HTML Allure report is generated automatically.
+5. The generated report is uploaded as a GitHub Actions artifact.
+6. The report is automatically deployed to GitHub Pages.
+
+The report is published even when one or more test suites fail, allowing failed CI runs to be investigated directly in Allure.
+
+👉 **[View the latest Allure Report](https://pilyaria.github.io/webdriverio-ebay-e2e-tests/)**
+
+### Generate the report locally
 
 Generate the HTML report:
 
 ```powershell
-npx allure generate allure-results --clean -o allure-report
+npm run allure:generate
 ```
 
-Open the report locally:
+Open the generated report:
 
 ```powershell
-npx allure open allure-report
+npm run allure:open
+```
+
+Or generate and immediately serve a temporary report:
+
+```powershell
+npm run allure:serve
+```
+
+For a clean local reporting cycle:
+
+```powershell
+Remove-Item -Recurse -Force allure-results, allure-report -ErrorAction SilentlyContinue
+npm run wdio
+npm run allure:generate
+npm run allure:open
 ```
 
 > The `--clean` option replaces the generated `allure-report/` directory but does not remove old raw data from `allure-results/`. Clear `allure-results/` before a new reporting cycle to avoid mixing multiple executions.
